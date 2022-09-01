@@ -1,0 +1,50 @@
+@charset "utf-8";
+
+$screen-xl: 1600px;
+$screen-lg: 1366px;
+$screen-md: 768px;
+$screen-sm: 480px;
+$gutters-size: 15px;
+
+.app {
+	&__content-limiter {
+		margin: 0 auto;
+		padding: 0 $gutters-size;
+		
+		@media (min-width: $screen-xl) {
+			max-width: $screen-lg;
+		}
+		@media (max-width: $screen-xl) {
+			max-width: $screen-lg;
+		}
+		@media (max-width: $screen-lg) {
+			max-width: $screen-md;
+		}
+		@media (max-width: $screen-md) {
+			max-width: $screen-sm;
+		}
+		@media (max-width: $screen-sm) {
+			max-width: unset;
+		}
+	}
+	&-input {
+		&__button {
+			
+		}
+		&__field {
+			
+		}
+		&__textarea {
+			
+		}
+		&__checkbox {
+			
+		}
+		&__radio {
+			
+		}
+		&__select {
+			
+		}
+	}
+}
