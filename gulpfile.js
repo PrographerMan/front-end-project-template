@@ -43,24 +43,24 @@ const WATCH = {
   JS: 'app/template/js/*.js'
 }
 
-const imagesBuildConfig = {
+const IMAGES_BUILD_CONFIG = {
   interlaced: true,
   progressive: true,
   optimizationLevel: 5
 };
 
-const autoprefixerConfig = {
+const AUTOPREFIXER_CONFIG = {
   browsers: 'cover 99.5%'
 };
 
-const jsminifyConfig = {
+const JSMINIFY_CONFIG = {
   ext: {
     min: '.js'
   },
   noSource: true
 };
 
-const BabelConfig = {
+const BABEL_CONFIG = {
   presets: ['@babel/env']
 }
 
@@ -78,7 +78,7 @@ gulp.task(`css:${BUILD_PREFIX}`, () => {
     .pipe(concat(CSS_BUNDLE_FILE_NAME))
     .pipe(sourcemaps.init())
     .pipe(sass())
-    .pipe(autoprefixer(autoprefixerConfig))
+    .pipe(autoprefixer(AUTOPREFIXER_CONFIG))
     .pipe(cleancss())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(OUTPUT.CSS))
@@ -92,8 +92,8 @@ gulp.task(`js:${BUILD_PREFIX}`, () => {
     .pipe(concat(JS_BUNDLE_FILE_NAME))
     .pipe(eslint())
     .pipe(sourcemaps.init())
-    .pipe(babel(BabelConfig))
-    .pipe(jsminify(jsminifyConfig))
+    .pipe(babel(BABEL_CONFIG))
+    .pipe(jsminify(JSMINIFY_CONFIG))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(OUTPUT.JS))
     .pipe(browserSync.reload({
@@ -103,7 +103,7 @@ gulp.task(`js:${BUILD_PREFIX}`, () => {
 
 gulp.task(`images:${BUILD_PREFIX}`, () => {
   return gulp.src(SOURCE.IMAGES)
-    .pipe(imgmin(imagesBuildConfig))
+    .pipe(imgmin(IMAGES_BUILD_CONFIG))
     .pipe(gulp.dest(OUTPUT.IMAGES));
 });
 
