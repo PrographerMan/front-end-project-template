@@ -49,10 +49,16 @@ const IMAGES_BUILD_CONFIG = {
   optimizationLevel: 5
 };
 
+/**
+ * https://github.com/postcss/autoprefixer#options
+ */
 const AUTOPREFIXER_CONFIG = {
   browsers: 'cover 99.5%'
 };
 
+/**
+ * https://github.com/hustxiaoc/gulp-minify#options
+ */
 const JSMINIFY_CONFIG = {
   ext: {
     min: '.js'
@@ -60,6 +66,9 @@ const JSMINIFY_CONFIG = {
   noSource: true
 };
 
+/**
+ * https://babeljs.io/docs/en/options
+ */
 const BABEL_CONFIG = {
   presets: ['@babel/env']
 }
