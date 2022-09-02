@@ -73,13 +73,27 @@ const BABEL_CONFIG = {
   presets: ['@babel/env']
 }
 
+/**
+ * https://browsersync.io/docs/api
+ */
+const BROWSERSYNC_RELOAD_CONFIG = {
+  stream: true
+}
+
+
+gulp.task('browserSync', () => {
+  browserSync.init({
+    server: {
+      baseDir: 'dist'
+    },
+  })
+});
+
 gulp.task(`html:${BUILD_PREFIX}`, () => {
   return gulp.src(SOURCE.HTML)
     .pipe(rigger())
     .pipe(gulp.dest(OUTPUT.HTML))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
+    .pipe(browserSync.reload(BROWSERSYNC_RELOAD_CONFIG))
 });
 
 gulp.task(`css:${BUILD_PREFIX}`, () => {
@@ -91,9 +105,7 @@ gulp.task(`css:${BUILD_PREFIX}`, () => {
     .pipe(cleancss())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(OUTPUT.CSS))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
+    .pipe(browserSync.reload(BROWSERSYNC_RELOAD_CONFIG))
 });
 
 gulp.task(`js:${BUILD_PREFIX}`, () => {
@@ -105,9 +117,7 @@ gulp.task(`js:${BUILD_PREFIX}`, () => {
     .pipe(jsminify(JSMINIFY_CONFIG))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(OUTPUT.JS))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
+    .pipe(browserSync.reload(BROWSERSYNC_RELOAD_CONFIG))
 });
 
 gulp.task(`images:${BUILD_PREFIX}`, () => {
@@ -126,16 +136,8 @@ gulp.task('copy', () => {
   gulp.src(SOURCE.NORMALIZE).pipe(gulp.dest(OUTPUT.NORMALIZE));
 });
 
-gulp.task('watch', ['browserSync', 'copy', `html:${BUILD_PREFIX}`, `css:${BUILD_PREFIX}`, `js:${BUILD_PREFIX}`], () => {
+gulp.task('server', ['browserSync', 'copy', `html:${BUILD_PREFIX}`, `css:${BUILD_PREFIX}`, `js:${BUILD_PREFIX}`], () => {
   gulp.watch(WATCH.HTML, [`html:${BUILD_PREFIX}`]);
   gulp.watch(WATCH.CSS, [`css:${BUILD_PREFIX}`]);
   gulp.watch(WATCH.JS, [`js:${BUILD_PREFIX}`]);
 });
-
-gulp.task('browserSync', () => {
-  browserSync.init({
-    server: {
-      baseDir: 'dist'
-    },
-  })
-})
